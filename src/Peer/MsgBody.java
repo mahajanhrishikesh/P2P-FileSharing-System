@@ -1,24 +1,29 @@
 package Peer;
-
 import java.net.Socket;
 
-
-public class MsgBody {
-
-	public Socket getSocket() {
-		return null;
+public class MsgBody 
+{
+	private Socket sock;
+	private byte[] msg;
+	
+	public Socket getSocket() 
+	{
+		return sock;
 	}
-
-	public byte[] getMessage() {
-		return null;
+	
+	public byte[] getMessage() 
+	{
+		return msg;
 	}
-
-	public void setSocket(Socket sock) {
-		
+	
+	public void setSocket(Socket sock) 
+	{
+		this.sock = sock;
 	}
-
-	public void setMessage(byte[] notInterestedMsg) {
-		
+	
+	public void setMessage(byte[] Msg) 
+	{
+		this.msg = Msg;
 	}
 
 }

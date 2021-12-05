@@ -1,23 +1,29 @@
 package Peer;
-
 import java.net.Socket;
 
-public class CompleteFile {
+public class CompleteFile 
+{
+	private Socket sock;
+	private boolean completeFileDownloaded;
 
-	public void setSock(Socket sock) {
-		
+	public void setSock(Socket sock) 
+	{
+		this.sock = sock;
 	}
 
-	public void setHasFullFile(boolean b) {
-		
+	public void setHasFullFile(boolean b) 
+	{
+		this.completeFileDownloaded = b;
 	}
 
-	public boolean hasFullFile() {
-		return false;
+	public boolean hasFullFile()
+	{
+		return completeFileDownloaded;
 	}
 
-	public Socket getSocket() {
-		return null;
+	public Socket getSocket()
+	{
+		return sock;
 	}
 
 }
