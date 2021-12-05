@@ -51,7 +51,7 @@ public class PeerProcess {
 		BitField.setBitField(peerProcess.completeFile, peerProcess.nPieces);
 		
 		//Start the logging per peer
-		Logger.startLogger(peerProcess.peerID);
+		Logger.beginLogger(peerProcess.peerID);
 		
 		if(peerProcess.completeFile == false)
 		{
@@ -66,7 +66,7 @@ public class PeerProcess {
 		else
 		{
 			FileParser fileParser = new FileParser(peerProcess.peerID, fName, peerProcess.pSize);
-			enumPieces = fileParser.readFile();
+			enumPieces = fileParser.fileReader();
 			
 			Server s = new Server(peerProcess.PORT, peerProcess.peerID, peerProcess.completeFile, peerProcess.nPieces, peerProcess.fSize, peerProcess.pSize);
 			s.start();
