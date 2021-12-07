@@ -10,9 +10,9 @@ public class BitField
 	public static byte[] messageLen = new byte[4];
 	public static byte messageType = 5;
 	
-	public static void setBitField(boolean completeFile, int num_of_pieces)
+	public static void setBitField(boolean fullFile, int num_of_pieces)
 	{
-		completeFile = completeFile;
+		completeFile = fullFile;
 		nPiece = num_of_pieces;
 		
 		int payload_len = (int)Math.ceil((double)nPiece/8);
