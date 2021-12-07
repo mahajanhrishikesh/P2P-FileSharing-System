@@ -229,7 +229,7 @@ public class MessageReciever extends Thread{
 						e.printStackTrace();
 					}
 				}
-				break;
+				//break;
 			}
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + type);
