@@ -185,7 +185,7 @@ public class MessageReciever extends Thread{
 				}
 				catch(InterruptedException e)
 				{
-					System.err.println(e);
+					e.printStackTrace();
 				}
 				
 				Have have = new Have(pIdx);
@@ -248,7 +248,7 @@ public class MessageReciever extends Thread{
 		} catch (IOException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("OOPS");
-			e.printStackTrace();
+			System.exit(0);
 		}
 		return msg;
 	}

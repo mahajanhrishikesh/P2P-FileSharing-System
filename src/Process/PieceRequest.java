@@ -234,7 +234,7 @@ public class PieceRequest extends Thread{
 			
 			Logger.closeLogger();
 		}
-		
+		System.out.println("Stopping for some weird reason.");
 		System.exit(0);
 	}
 
