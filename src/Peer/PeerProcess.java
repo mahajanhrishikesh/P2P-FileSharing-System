@@ -66,7 +66,6 @@ public class PeerProcess {
 		}
 		else if(peerProcess.completeFile == true)
 		{
-			
 			FileParser fileParser = new FileParser(peerProcess.peerID, fName, peerProcess.pSize);
 			enumPieces = fileParser.fileReader();
 			

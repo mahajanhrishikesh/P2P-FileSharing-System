@@ -108,6 +108,7 @@ public class MessageReciever extends Thread{
 				System.out.println("Have message received " + remPeerID + " for piece "+nPiece);
 				System.out.println();
 				Logger.receiveHave(remPeerID, nPiece);
+				break;
 			}
 			case 6: 
 			{
@@ -199,7 +200,7 @@ public class MessageReciever extends Thread{
 						PeerProcess.msgBody.add(mBody);
 					}
 				}
-				
+				break;
 			}
 			
 			case 8:
@@ -224,6 +225,7 @@ public class MessageReciever extends Thread{
 						e.printStackTrace();
 					}
 				}
+				break;
 			}
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + type);
