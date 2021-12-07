@@ -33,7 +33,7 @@ public class BitField
 		{
 			for(int j=0;j<payload.length;j++)
 			{
-				i +=1;
+				i ++;
 				bitfield[i] = 0; 		//initiliaze bitfield to zero if file not present
 			}
 		}
@@ -41,14 +41,14 @@ public class BitField
 		{
 			for(int j=0;j<payload.length-1;j++)
 			{
-				i +=1;
+				i ++;
 				for(int k=0;k<8;k++)
 				{
 					bitfield[i] = (byte)(bitfield[i] | (1 << k));
 				}
 			}
 			
-			i+=1;
+			i++;
 			for(int j=0;j<leftover;j++)
 			{
 				bitfield[i] = (byte) (bitfield[i] | (1 << (7-j)));
