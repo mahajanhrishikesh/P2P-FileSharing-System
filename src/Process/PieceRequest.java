@@ -59,6 +59,7 @@ public class PieceRequest extends Thread{
 					if(peer.getPeerID() == peerID)
 					{
 						persPeerID = peer.getPersPeerID();
+						System.out.println("PersPeerID: "+persPeerID);
 						sock = peer.getSock();
 						break;
 					}
