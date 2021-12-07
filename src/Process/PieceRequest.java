@@ -76,7 +76,6 @@ public class PieceRequest extends Thread{
 				}
 				
 				boolean fullFile = hasFullFile();
-				System.out.println("FullFile Boolean: "+fullFile);
 				
 				if(fullFile)
 				{
@@ -114,6 +113,37 @@ public class PieceRequest extends Thread{
 								mBody.setSocket(sock);
 								mBody.setMessage(n.notInterestedMsg);
 								PeerProcess.msgBody.add(mBody);
+							}
+							flag=true;
+						}
+						else {
+							Request r = new Request(getPiece);
+							synchronized (PeerProcess.msgBody)
+							{
+								MsgBody msg = new MsgBody();
+								msg.setSocket(sock);
+								msg.setMessage(r.request);
+								PeerProcess.msgBody.add(msg);
+							}
+						}
+					}
+					else
+					{
+						field = peer.getBitfield();
+						getPiece = getPieceInfo(field, BitField.bitfield);
+						
+						if(getPiece == 0)
+						{
+							if(flag)
+							{
+								NotInterested not = new NotInterested();
+								synchronized (PeerProcess.msgBody)
+								{
+									MsgBody msg = new MsgBody();
+									msg.setSocket(sock);
+									msg.setMessage(not.notInterestedMsg);
+									PeerProcess.msgBody.add(msg);
+								}
 							}
 						}
 						else
