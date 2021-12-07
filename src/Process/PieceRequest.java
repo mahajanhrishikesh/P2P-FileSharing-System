@@ -107,7 +107,7 @@ public class PieceRequest extends Thread{
 						{
 							peer.setInterested(false);
 							NotInterested n = new NotInterested();
-							System.out.println("Not interested Here");
+							
 							synchronized (PeerProcess.msgBody)
 							{
 								MsgBody mBody = new MsgBody();
@@ -156,6 +156,7 @@ public class PieceRequest extends Thread{
 							
 							synchronized (PeerProcess.msgBody)
 							{
+								System.out.println("Interested Here");
 								MsgBody mBody = new MsgBody();
 								mBody.setSocket(sock);
 								mBody.setMessage(i.interestedMsg);
