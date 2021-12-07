@@ -172,7 +172,7 @@ public class MessageReciever extends Thread{
 								PeerProcess.peersList.get(remPeerID).getDataStats().put(remPeerID, (long)0);
 							}
 							PeerProcess.peersList.get(remPeerID).getDataStats().put(remPeerID, PeerProcess.peersList.get(remPeerID).getDataStats().get(remPeerID) + pSize);
-							System.out.println(PeerProcess.peersList.get(remPeerID).getDataStats().get(remPeerID));
+							System.out.println(PeerProcess.peersList.get(remPeerID).getDataStats().size());
 							Thread.sleep(30);
 						}
 					} catch(Exception e)
