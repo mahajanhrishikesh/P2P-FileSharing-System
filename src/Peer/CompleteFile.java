@@ -21,7 +21,7 @@ public class CompleteFile
 		return completeFileDownloaded;
 	}
 
-	public Socket getSocket()
+	public Socket getSock()
 	{
 		return sock;
 	}

@@ -127,7 +127,7 @@ public class MessageReciever extends Thread{
 				synchronized(PeerProcess.msgBody)
 				{
 					MsgBody mBody = new MsgBody();
-					mBody.setSocket(sock);
+					mBody.setSock(sock);
 					mBody.setMessage(p.pieceData);
 					PeerProcess.msgBody.add(mBody);
 				}
@@ -195,7 +195,7 @@ public class MessageReciever extends Thread{
 					synchronized (PeerProcess.msgBody)
 					{
 						MsgBody mBody = new MsgBody();
-						mBody.setSocket(peer.getSock());
+						mBody.setSock(peer.getSock());
 						mBody.setMessage(have.have);
 						PeerProcess.msgBody.add(mBody);
 					}
@@ -212,7 +212,7 @@ public class MessageReciever extends Thread{
 					while(itr.hasNext())
 					{
 						CompleteFile peer = (CompleteFile) itr.next();
-						if(peer.getSocket().equals(sock))
+						if(peer.getSock().equals(sock))
 						{
 							peer.setHasFullFile(true);
 							break;

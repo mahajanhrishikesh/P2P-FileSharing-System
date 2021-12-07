@@ -116,7 +116,7 @@ public class PieceRequest extends Thread{
 							synchronized (PeerProcess.msgBody)
 							{
 								MsgBody mBody = new MsgBody();
-								mBody.setSocket(sock);
+								mBody.setSock(sock);
 								mBody.setMessage(n.notInterestedMsg);
 								PeerProcess.msgBody.add(mBody);
 							}
@@ -127,7 +127,7 @@ public class PieceRequest extends Thread{
 							synchronized (PeerProcess.msgBody)
 							{
 								MsgBody msg = new MsgBody();
-								msg.setSocket(sock);
+								msg.setSock(sock);
 								msg.setMessage(r.request);
 								PeerProcess.msgBody.add(msg);
 							}
@@ -146,7 +146,7 @@ public class PieceRequest extends Thread{
 								synchronized (PeerProcess.msgBody)
 								{
 									MsgBody msg = new MsgBody();
-									msg.setSocket(sock);
+									msg.setSock(sock);
 									msg.setMessage(not.notInterestedMsg);
 									PeerProcess.msgBody.add(msg);
 								}
@@ -163,7 +163,7 @@ public class PieceRequest extends Thread{
 							{
 								System.out.println("Interested Here");
 								MsgBody mBody = new MsgBody();
-								mBody.setSocket(sock);
+								mBody.setSock(sock);
 								mBody.setMessage(i.interestedMsg);
 								PeerProcess.msgBody.add(mBody);
 							}
@@ -171,7 +171,7 @@ public class PieceRequest extends Thread{
 							synchronized (PeerProcess.msgBody)
 							{
 								MsgBody mBody = new MsgBody();
-								mBody.setSocket(sock);
+								mBody.setSock(sock);
 								mBody.setMessage(request.request);
 								PeerProcess.msgBody.add(mBody);
 							}
@@ -262,7 +262,7 @@ public class PieceRequest extends Thread{
 			synchronized (PeerProcess.msgBody)
 			{
 				MsgBody msgBody = new MsgBody();
-				msgBody.setSocket(peer.getSocket());
+				msgBody.setSock(peer.getSock());
 				msgBody.setMessage(fullFileDownloaded);
 				PeerProcess.msgBody.add(msgBody);
 			}
