@@ -382,7 +382,7 @@ public class PieceRequest extends Thread{
 		{
 			if(tPieceList[i] == 0)
 			{
-				choices[x2] = 1;
+				choices[x2] = i;
 				x2 ++;
 			}
 		}
@@ -399,9 +399,7 @@ public class PieceRequest extends Thread{
 	private int decideOption(int nMissingPieces) {
 		
 		Random rand = new Random();
-		int rPID = rand.nextInt(nMissingPieces);
-		System.out.println(rPID);
-		return rPID;
+		return rand.nextInt(nMissingPieces);
 	}
 
 
