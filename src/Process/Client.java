@@ -53,10 +53,11 @@ public class Client extends Thread{
 			PORT = Integer.parseInt(infoArr[2]);
 			
 			try {
-				
+				System.out.println("Inside client "+peerIP);
 				Socket sock = new Socket(peerIP, PORT);
 				HandShake sendHS = new HandShake(persPeerID);
 				handShakeSender(sock, sendHS.content);
+				System.out.println("Sent Handshake.");
 				
 				byte[] recvHSContent = handShakeReceiver(sock);
 				String head = new String(Arrays.copyOfRange(recvHSContent, 0, 28), StandardCharsets.UTF_8);
@@ -65,9 +66,11 @@ public class Client extends Thread{
 				String peerIDStr = new String(Arrays.copyOfRange(recvHSContent, 28, 32));
 			    String trimmedPeerID = peerIDStr.trim();
 			    int rcvdID = Integer.parseInt(trimmedPeerID);
-			    
+			    System.out.println(head);
+			    System.out.println(rcvdID);
 			    if(head.equals("PEER2PEERCNGROUP280000000000"))
 			    {
+			    	System.out.println("Head confirmed.");
 			    	boolean flag = false;
 			    	Iterator<Integer> itr2 = PeerProcess.peerIDList.iterator();
 			    	while(itr2.hasNext())
@@ -91,10 +94,10 @@ public class Client extends Thread{
 			    		peer.setSock(sock);
 			    		peer.setPeerID(Integer.parseInt(infoArr[0]));
 			    		
+			    		sendBitField(sock);
 			    		byte[] rcvdfield = recieveBitField(sock);
 			    		peer.setBitfield(rcvdfield);
 			    		
-			    		sendBitField(sock);
 			    		peer.setInterested(false);
 			    		
 			    		synchronized (PeerProcess.peersList)
@@ -118,11 +121,14 @@ public class Client extends Thread{
 			    		System.out.println();
 			    		Logger.makeTCPConnection(Integer.parseInt(infoArr[0]));
 			    		
+			    		
 			    		MessageSender ms = new MessageSender();
 			    		ms.start();
+			    		System.out.println("Sending Message");
 			    		
 			    		PieceRequest pr = new PieceRequest(Integer.parseInt(infoArr[0]), nPieces, completeFile, fSize, pSize);
 			    		pr.start();
+			    		System.out.println("Requested Piece");
 			    		
 			    		MessageReciever mr = new MessageReciever(sock, pSize);
 			    		mr.start();
@@ -167,10 +173,13 @@ public class Client extends Thread{
 	}
 
 	private byte[] handShakeReceiver(Socket sock) {
+		System.out.println("Inside HSR");
 		byte[] content = null;
 		try {
+			System.out.println("Waiting for socket Input.");
 			ObjectInputStream in = new ObjectInputStream(sock.getInputStream());
 			content = (byte[]) in.readObject();
+			System.out.println(String.valueOf(content));
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -179,6 +188,7 @@ public class Client extends Thread{
 	}
 
 	private void handShakeSender(Socket sock, byte[] content) {
+		System.out.println("Inside HSS");
 		ObjectOutputStream out;
 		try {
 			out = new ObjectOutputStream(sock.getOutputStream());

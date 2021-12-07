@@ -43,6 +43,7 @@ public class PieceRequest extends Thread{
 	@Override
 	public void run()
 	{
+		
 		if(completeFile == false)
 		{
 			Peer peer = null;
@@ -66,6 +67,7 @@ public class PieceRequest extends Thread{
 			
 			while(true)
 			{
+				//System.out.println("Inside Piece Request.");
 				try {
 					Thread.sleep(20);
 				} catch (InterruptedException e) {
@@ -339,7 +341,7 @@ public class PieceRequest extends Thread{
 		
 		int choice = decideOption(nMissingPieces);
 		int piece = choices[choice];
-		
+		System.out.println("Reqeusted Piece "+piece);
 		return (piece + 1);
 	}
 
@@ -360,7 +362,6 @@ public class PieceRequest extends Thread{
 		
 		boolean completeFlag = true;
 		byte[] field = BitField.bitfield;
-		
 		for(int j = 5; j < field.length - 1; j++)
 		{
 			if(field[j] != -1)
@@ -369,7 +370,7 @@ public class PieceRequest extends Thread{
 				break;
 			}
 		}
-		
+		System.out.println("Complete flag"+completeFlag);
 		if(completeFlag)
 		{
 			int overflowBits = nPieces % 8;
