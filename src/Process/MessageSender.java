@@ -25,19 +25,9 @@ public class MessageSender extends Thread{
 			{
 				synchronized (PeerProcess.msgBody)
 				{
-					System.out.println(PeerProcess.msgBody.size());
 					MsgBody mBody = PeerProcess.msgBody.poll();
 					Socket sock = mBody.getSock();
 					byte[] message = mBody.getMessage();
-					
-					if(sock==null)
-					{
-						System.out.println("Null Sock");
-					}
-					else
-					{
-						System.out.println("Sock not null");
-					}
 					sendMessage(sock, message);
 					
 				}
@@ -51,7 +41,6 @@ public class MessageSender extends Thread{
 			ObjectOutputStream out = new ObjectOutputStream(sock.getOutputStream());
 			synchronized (sock)
 			{
-				System.out.println(message);
 				out.writeObject(message);
 			}
 		} catch (IOException e) {
