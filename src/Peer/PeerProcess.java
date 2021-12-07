@@ -63,7 +63,7 @@ public class PeerProcess {
 			Client c = new Client(peerProcess.peerID, peerProcess.completeFile, peerProcess.nPieces, peerProcess.fSize, peerProcess.pSize);
 			c.start();			
 		}
-		else
+		else if(peerProcess.completeFile == true)
 		{
 			FileParser fileParser = new FileParser(peerProcess.peerID, fName, peerProcess.pSize);
 			enumPieces = fileParser.fileReader();
