@@ -34,7 +34,7 @@ public class BitField
 			for(int j=0;j<payload.length;j++)
 			{
 				i +=1;
-				bitfield[j] = 0; 		//initiliaze bitfield to zero if file not present
+				bitfield[i] = 0; 		//initiliaze bitfield to zero if file not present
 			}
 		}
 		else
