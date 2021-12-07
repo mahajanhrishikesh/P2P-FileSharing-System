@@ -11,6 +11,7 @@ import java.util.Iterator;
 
 import FileManagement.Logger;
 import Peer.CompleteFile;
+import Peer.HandShake;
 import Peer.Peer;
 import Peer.PeerProcess;
 import Peer.message.BitField;
@@ -38,11 +39,11 @@ public class Server extends Thread {
 		try
 		{
 			ServerSocket s = new ServerSocket(PORT);
-			
+			System.out.println("Server is running on "+PORT);
 			while(true)
 			{
 				Socket sock = s.accept();
-				
+				System.out.println("Accepted Connection");
 				byte[] recvHSContent = handShakeReceiver(sock);
 				String head = new String(Arrays.copyOfRange(recvHSContent, 0, 28), StandardCharsets.UTF_8);
 				System.out.println(head);
@@ -51,14 +52,17 @@ public class Server extends Thread {
 			    String trimmedPeerID = peerIDStr.trim();
 			    int rcvdID = Integer.parseInt(trimmedPeerID);
 			    
+			    HandShake sendHS = new HandShake(persPeerID);
+			    handShakeSender(sock, sendHS.content);
+			    
 			    if(head.equals("PEER2PEERCNGROUP280000000000"))
 			    {
+			    	System.out.println("head confirmed..");
 			    	boolean flag = false;
 			    	Iterator<Integer> itr2 = PeerProcess.peerIDList.iterator();
 			    	while(itr2.hasNext())
 			    	{
 			    		int tid = itr2.next();
-			    		
 			    		if(tid != persPeerID) 
 			    		{
 			    			if(tid == rcvdID)
@@ -71,6 +75,7 @@ public class Server extends Thread {
 			    	
 			    	if(flag)
 			    	{
+			    		System.out.println("Identified peer"+rcvdID);
 			    		Peer peer = new Peer();
 			    		peer.setPersPeerID(persPeerID);
 			    		peer.setSock(sock);
@@ -78,7 +83,7 @@ public class Server extends Thread {
 			    		
 			    		byte[] rcvdfield = recieveBitField(sock);
 			    		peer.setBitfield(rcvdfield);
-			    		
+			    		//System.out.println("Bitfield done");
 			    		sendBitField(sock);
 			    		peer.setInterested(false);
 			    		
@@ -86,10 +91,10 @@ public class Server extends Thread {
 			    		
 			    		CompleteFile completefile = new CompleteFile();
 			    		completefile.setSock(sock);
-			    		completefile.setHasFullFile(false);
+			    		completefile.setHasFullFile(true);
 			    		
 			    		PeerProcess.hasFullFile.add(completefile);
-			    		
+			    		//System.out.println("File status checked");
 			    		System.out.println("Incoming Connection Request From PeerID: "+rcvdID);
 			    		System.out.println();
 			    		Logger.makeTCPConnection(rcvdID);
