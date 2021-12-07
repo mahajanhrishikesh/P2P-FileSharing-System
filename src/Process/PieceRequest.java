@@ -247,8 +247,8 @@ public class PieceRequest extends Thread{
 		
 		while(itr.hasNext())
 		{
-			CompleteFile peer = (CompleteFile)itr.next();
-			if(peer.hasFullFile())
+			CompleteFile cf = (CompleteFile)itr.next();
+			if(cf.hasFullFile())
 			{
 				allFlag = false;
 				break;
