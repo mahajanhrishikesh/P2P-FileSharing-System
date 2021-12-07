@@ -122,7 +122,8 @@ public class PieceRequest extends Thread{
 							}
 							flag=true;
 						}
-						else {
+						else 
+						{
 							Request r = new Request(getPiece);
 							synchronized (PeerProcess.msgBody)
 							{
