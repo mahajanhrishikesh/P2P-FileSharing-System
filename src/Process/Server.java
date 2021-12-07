@@ -95,6 +95,10 @@ public class Server extends Thread {
 			    		completefile.setHasFullFile(false);
 			    		
 			    		PeerProcess.hasFullFile.add(completefile);
+			    		for(CompleteFile cf: PeerProcess.hasFullFile)
+			    		{
+			    			System.out.println(cf.hasFullFile());
+			    		}
 			    		//System.out.println("File status checked");
 			    		System.out.println("Incoming Connection Request From PeerID: "+rcvdID);
 			    		System.out.println();
