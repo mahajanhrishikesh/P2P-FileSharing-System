@@ -28,7 +28,7 @@ public class MessageSender extends Thread{
 					MsgBody mBody = PeerProcess.msgBody.poll();
 					Socket sock = mBody.getSock();
 					byte[] message = mBody.getMessage();
-					System.out.println(mBody.toString().length());
+					System.out.println(PeerProcess.msgBody.size());
 					if(sock==null)
 					{
 						System.out.println("Null Sock");
