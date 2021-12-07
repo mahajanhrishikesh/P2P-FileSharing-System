@@ -174,11 +174,11 @@ public class MessageReciever extends Thread{
 							while(itr.hasNext())
 							{
 								int next = itr.next().getPeerID();
-								tempI++;
 								if(remPeerID == next)
 								{
 									remLIdx = tempI;
 								}
+								tempI++;
 							}
 							if(!PeerProcess.peersList.get(remLIdx).getDataStats().containsKey(remPeerID))
 							{
