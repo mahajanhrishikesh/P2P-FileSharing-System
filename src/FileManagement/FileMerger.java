@@ -41,8 +41,6 @@ public class FileMerger {
 				int size = ByteBuffer.wrap(arr).getInt();
 				size = size - 4;
 				
-				System.out.println(i + " = " + size);
-				
 				byte[] buff = new byte[size];
 				
 				for (int k = 0, z = 9; k < buff.length && z < p.pieceData.length; k++, z++) {
