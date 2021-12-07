@@ -103,11 +103,11 @@ public class PieceRequest extends Thread{
 					{
 						field = peer.getBitfield();
 						getPiece = getPieceInfo(field, BitField.bitfield);
-						System.out.println("Here");
 						if(getPiece == 0)
 						{
 							peer.setInterested(false);
 							NotInterested n = new NotInterested();
+							System.out.println("Not interested Here");
 							synchronized (PeerProcess.msgBody)
 							{
 								MsgBody mBody = new MsgBody();
