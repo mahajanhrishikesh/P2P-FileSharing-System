@@ -116,6 +116,7 @@ public class PieceRequest extends Thread{
 							synchronized (PeerProcess.msgBody)
 							{
 								MsgBody mBody = new MsgBody();
+								System.out.println("IsInterested sock");
 								mBody.setSock(sock);
 								mBody.setMessage(n.notInterestedMsg);
 								PeerProcess.msgBody.add(mBody);
@@ -128,6 +129,7 @@ public class PieceRequest extends Thread{
 							synchronized (PeerProcess.msgBody)
 							{
 								MsgBody msg = new MsgBody();
+								System.out.println("Request sock");
 								msg.setSock(sock);
 								msg.setMessage(r.request);
 								PeerProcess.msgBody.add(msg);
@@ -147,6 +149,7 @@ public class PieceRequest extends Thread{
 								synchronized (PeerProcess.msgBody)
 								{
 									MsgBody msg = new MsgBody();
+									System.out.println("Get bitfield sock");
 									msg.setSock(sock);
 									msg.setMessage(not.notInterestedMsg);
 									PeerProcess.msgBody.add(msg);
