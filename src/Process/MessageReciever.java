@@ -127,12 +127,12 @@ public class MessageReciever extends Thread{
 				System.out.println("i: "+i);
 				Piece p = PeerProcess.enumPieces.get(i);
 				
-				synchronized(PeerProcess.msgBody)
+				synchronized(PeerProcess.msgPool)
 				{
 					MsgBody mBody = new MsgBody();
 					mBody.setSock(sock);
 					mBody.setMessage(p.pieceData);
-					PeerProcess.msgBody.add(mBody);
+					PeerProcess.msgPool.add(mBody);
 				}
 				break;
 			}
@@ -195,12 +195,12 @@ public class MessageReciever extends Thread{
 				{
 					Peer peer = (Peer)itr.next();
 					
-					synchronized (PeerProcess.msgBody)
+					synchronized (PeerProcess.msgPool)
 					{
 						MsgBody mBody = new MsgBody();
 						mBody.setSock(peer.getSock());
 						mBody.setMessage(have.have);
-						PeerProcess.msgBody.add(mBody);
+						PeerProcess.msgPool.add(mBody);
 					}
 				}
 				break;

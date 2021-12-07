@@ -20,6 +20,13 @@ public class PeerInfoFileParser {
 		this.persPeerID = peerID;
 	}
 	
+	/**
+	 * Function will read the PeerInfo file of the format
+	 *  
+	 * <p>Peer_ID Peer_IP_ADDR Peer_PORT Peer_FullFileStatus</p>
+	 * 
+	 * Per Line.
+	 */
 	public void readPeerInfoFile()
 	{
 		File pifp = new File(filePath);
@@ -54,6 +61,11 @@ public class PeerInfoFileParser {
 		}
 	}
 	
+	/**
+	 * Function will read the PeerInfo file and send full ID List 
+	 * 
+	 * @return idArr List of IDs of the peers is sent back.
+	 */
 	public ArrayList<Integer> getPeerIDs()
 	{
 		ArrayList<Integer> idArr = new ArrayList<>();
@@ -77,6 +89,12 @@ public class PeerInfoFileParser {
 		return null;
 	} 
 	
+	/**
+	 * Function will read the PeerInfo file and send complete information regarding 
+	 * all peers.
+	 * 
+	 * @return infoArr List of IDs of the peers is sent back.
+	 */
 	public ArrayList<String[]> getAllPeerInfo()
 	{
 		ArrayList<String[]> infoArr = new ArrayList<>();
@@ -107,6 +125,35 @@ public class PeerInfoFileParser {
 		return null;
 	}
 
+	/**
+	 * Function will read the PeerInfo file and send full IP List 
+	 * 
+	 * @return idArr List of IDs of the peers is sent back.
+	 */
+	public ArrayList<String> getPeerIPs()
+	{
+		ArrayList<String> ipArr = new ArrayList<>();
+		File pifp = new File(filePath);
+		try
+		{
+			Scanner sc = new Scanner(pifp);
+			while(sc.hasNextLine())
+			{
+				String data = sc.nextLine();
+				String[] arr = data.split(" ");
+				ipArr.add(arr[0]);				
+			}
+			sc.close();
+			return ipArr;
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.println("Please load common configuration file before running again. Expected Path: "+ filePath);
+		}
+		return null;
+	}
+	
+	/******GETTERS & SETTERS***********/
 	public int getPeerID() {
 		return peerID;
 	}

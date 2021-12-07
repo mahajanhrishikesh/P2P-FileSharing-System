@@ -84,7 +84,6 @@ public class Server extends Thread {
 			    		sendBitField(sock);
 			    		byte[] rcvdfield = recieveBitField(sock);
 			    		peer.setBitfield(rcvdfield);
-			    		//System.out.println("Bitfield done");
 			    		
 			    		peer.setInterested(false);
 			    		
@@ -94,8 +93,6 @@ public class Server extends Thread {
 			    		completefile.setSock(sock);
 			    		completefile.setHasFullFile(false);
 			    		
-			    	
-			    		//System.out.println("File status checked");
 			    		System.out.println("Incoming Connection Request From PeerID: "+rcvdID);
 			    		System.out.println();
 			    		Logger.madeTCPConnected(rcvdID);
@@ -122,6 +119,8 @@ public class Server extends Thread {
 		}
 		
 	}
+	
+	/****************OUTGOING DATA FUNCTIONS*****************/
 		private void sendBitField(Socket sock) {
 			
 			try {
@@ -132,7 +131,20 @@ public class Server extends Thread {
 				e.printStackTrace();
 			}
 		}
+		
+		private void handShakeSender(Socket sock, byte[] content) {
+			ObjectOutputStream out;
+			try {
+				out = new ObjectOutputStream(sock.getOutputStream());
+				out.writeObject(content);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		}
+	/******************************************************/
 
+	/****************INCOMING DATA FUNCTIONS*****************/
 		private byte[] recieveBitField(Socket sock) {
 			byte[] bf = null;
 			ObjectInputStream in;
@@ -157,16 +169,6 @@ public class Server extends Thread {
 			}
 			return content;
 		}
-
-		private void handShakeSender(Socket sock, byte[] content) {
-			ObjectOutputStream out;
-			try {
-				out = new ObjectOutputStream(sock.getOutputStream());
-				out.writeObject(content);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-		}
-
+		/******************************************************/
+		
 }

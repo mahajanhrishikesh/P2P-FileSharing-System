@@ -24,11 +24,17 @@ public class PeerProcess {
 	public static HashMap<Integer, Piece> enumPieces;
 	public static ArrayList<Peer> peersList = new ArrayList<Peer>();
 	public static ArrayList<Integer> peerIDList;
-	public static LinkedList<MsgBody> msgBody = new LinkedList<MsgBody>();
+	public static LinkedList<MsgBody> msgPool = new LinkedList<MsgBody>();
 	public static ArrayList<CompleteFile> hasFullFile = new ArrayList<CompleteFile>();
 	
+	/**
+	 * Main PeerProcess starter code
+	 * @param args args[0] accepts a single peer ID code, rest of the peer information is 
+	 * extracted from PeerInfo.cfg
+	 */
 	public static void main(String[] args)
 	{
+		
 		//Start Peer Process
 		PeerProcess peerProcess = new PeerProcess();
 		
@@ -54,8 +60,11 @@ public class PeerProcess {
 		//Start the logging per peer
 		Logger.beginLogger(peerProcess.peerID);
 		
+		// If peer does not have the complete file the peer will be started up as both,
+		// a client and a server.
 		if(peerProcess.completeFile == false)
 		{
+			// Since no file exists a hashmap of enumPieces needs to be made from scratch
 			enumPieces = new HashMap<Integer, Piece>();
 			
 			Server s = new Server(peerProcess.PORT, peerProcess.peerID, peerProcess.completeFile, peerProcess.nPieces, peerProcess.fSize, peerProcess.pSize);

@@ -114,28 +114,28 @@ public class PieceRequest extends Thread{
 							peer.setInterested(false);
 							NotInterested n = new NotInterested();
 							
-							synchronized (PeerProcess.msgBody)
+							synchronized (PeerProcess.msgPool)
 							{
 								MsgBody mBody = new MsgBody();
 								//System.out.println("IsInterested sock");
 								mBody.setSock(sock);
 								mBody.setMessage(n.notInterestedMsg);
 								//System.out.println("1 MBody touched by "+peer.getPeerID());
-								PeerProcess.msgBody.add(mBody);
+								PeerProcess.msgPool.add(mBody);
 							}
 							flag=true;
 						}
 						else 
 						{
 							Request r = new Request(getPiece);
-							synchronized (PeerProcess.msgBody)
+							synchronized (PeerProcess.msgPool)
 							{
 								MsgBody msg = new MsgBody();
 								//System.out.println("Request sock");
 								msg.setSock(sock);
 								msg.setMessage(r.request);
 								//System.out.println(peer.getPeerID());
-								PeerProcess.msgBody.add(msg);
+								PeerProcess.msgPool.add(msg);
 								//System.out.println("2 MBody touched by "+peer.getPeerID());
 							}
 						}
@@ -150,13 +150,13 @@ public class PieceRequest extends Thread{
 							if(!flag)
 							{
 								NotInterested not = new NotInterested();
-								synchronized (PeerProcess.msgBody)
+								synchronized (PeerProcess.msgPool)
 								{
 									MsgBody msg = new MsgBody();
 									//System.out.println("Get bitfield sock error");
 									msg.setSock(sock);
 									msg.setMessage(not.notInterestedMsg);
-									PeerProcess.msgBody.add(msg);
+									PeerProcess.msgPool.add(msg);
 									//System.out.println("3 MBody touched by "+peer.getPeerID());
 								}
 							}
@@ -168,22 +168,22 @@ public class PieceRequest extends Thread{
 							
 							Interested i = new Interested();
 							
-							synchronized (PeerProcess.msgBody)
+							synchronized (PeerProcess.msgPool)
 							{
 								//System.out.println("Interested Here");
 								MsgBody mBody = new MsgBody();
 								mBody.setSock(sock);
 								mBody.setMessage(i.interestedMsg);
-								PeerProcess.msgBody.add(mBody);
+								PeerProcess.msgPool.add(mBody);
 								//System.out.println("4 MBody touched by "+peer.getPeerID());
 							}
 							Request request = new Request(getPiece);
-							synchronized (PeerProcess.msgBody)
+							synchronized (PeerProcess.msgPool)
 							{
 								MsgBody mBody = new MsgBody();
 								mBody.setSock(sock);
 								mBody.setMessage(request.request);
-								PeerProcess.msgBody.add(mBody);
+								PeerProcess.msgPool.add(mBody);
 								//System.out.println("5 MBody touched by "+peer.getPeerID()+"");
 							}
 						}
@@ -216,7 +216,7 @@ public class PieceRequest extends Thread{
 				e.printStackTrace();
 			}
 			
-			if(status == false && PeerProcess.msgBody.isEmpty())
+			if(status == false && PeerProcess.msgPool.isEmpty())
 			{
 				break;
 			}
@@ -267,12 +267,12 @@ public class PieceRequest extends Thread{
 		{
 			CompleteFile peer = (CompleteFile) itr.next();
 			
-			synchronized (PeerProcess.msgBody)
+			synchronized (PeerProcess.msgPool)
 			{
 				MsgBody msgBody = new MsgBody();
 				msgBody.setSock(peer.getSock());
 				msgBody.setMessage(fullFileDownloaded);
-				PeerProcess.msgBody.add(msgBody);
+				PeerProcess.msgPool.add(msgBody);
 			}
 		}
 	}

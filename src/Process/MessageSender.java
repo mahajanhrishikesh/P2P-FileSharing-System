@@ -21,11 +21,11 @@ public class MessageSender extends Thread{
 				e.printStackTrace();
 			}
 			
-			if(!PeerProcess.msgBody.isEmpty())
+			if(!PeerProcess.msgPool.isEmpty())
 			{
-				synchronized (PeerProcess.msgBody)
+				synchronized (PeerProcess.msgPool)
 				{
-					MsgBody mBody = PeerProcess.msgBody.poll();
+					MsgBody mBody = PeerProcess.msgPool.poll();
 					Socket sock = mBody.getSock();
 					byte[] message = mBody.getMessage();
 					sendMessage(sock, message);

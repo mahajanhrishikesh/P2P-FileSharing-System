@@ -7,6 +7,20 @@ import java.util.Scanner;
 
 public class CommonConfigParser {
 	
+	/**
+	 * Reads the common configuration file of the format 
+	 * <pre>
+	 * 	NumberOfPreferredNeighbors 
+	 *  UnchokingInterval 
+	 *  OptimisticUnchokingInterval 
+	 *  FileName *.jpg
+	 *  FileSize 
+	 *  PieceSize 
+	 * </pre>
+	 * 
+	 * @return res Extracts and puts the values of all the fields mentioned above into a
+	 * HashMap for easier access.
+	 */
 	public static HashMap<String, Object> readCommonFile() {
 		// TODO Auto-generated method stub
 		String fileName = "\\common.cfg";
