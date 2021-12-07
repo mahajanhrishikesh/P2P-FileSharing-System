@@ -22,7 +22,7 @@ public class MessageReciever extends Thread{
 	private long pSize;
 	
 	
-	public MessageReciever(Socket sock, long pSize) {
+	public MessageReciever(int persPeerID, int remID, Socket sock, long pSize) {
 		this.sock = sock;
 		this.pSize = pSize;
 		
@@ -34,6 +34,7 @@ public class MessageReciever extends Thread{
 			if(peer.getSock().equals(sock))
 			{
 				remPeerID = peer.getPeerID();
+				System.out.println("Expected ID: "+remID+" received peer ID: "+remPeerID);
 			}
 		}
 	}
@@ -179,7 +180,7 @@ public class MessageReciever extends Thread{
 								PeerProcess.dataStats.put(remPeerID, (long)0);
 							}
 							PeerProcess.dataStats.put(remPeerID, PeerProcess.dataStats.get(remPeerID) + pSize);
-							System.out.println(PeerProcess.dataStats.get(1001));
+							//System.out.println(PeerProcess.dataStats.get(1001));
 							Thread.sleep(30);
 						}
 					} catch(Exception e)

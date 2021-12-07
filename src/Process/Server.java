@@ -119,7 +119,7 @@ public class Server extends Thread {
 			    		pr.start();
 			    		
 			    		// Receive & Process messages by type
-			    		MessageReciever mr = new MessageReciever(sock, pSize);
+			    		MessageReciever mr = new MessageReciever(persPeerID, rcvdID, sock, pSize);
 			    		mr.start();
 			    	}
 			    	else

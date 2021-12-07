@@ -130,7 +130,7 @@ public class Client extends Thread{
 			    		pr.start();
 			    		System.out.println("Requested Piece");
 			    		
-			    		MessageReciever mr = new MessageReciever(sock, pSize);
+			    		MessageReciever mr = new MessageReciever(persPeerID, rcvdID, sock, pSize);
 			    		mr.start();
 			    	}
 			    	else
