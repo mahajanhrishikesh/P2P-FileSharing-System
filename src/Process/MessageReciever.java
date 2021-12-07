@@ -182,14 +182,14 @@ public class MessageReciever extends Thread{
 							}
 							if(!PeerProcess.peersList.get(remLIdx).getDataStats().containsKey(remPeerID))
 							{
-								HashMap<Integer, Long> temp = PeerProcess.peersList.get(remPeerID).getDataStats();
+								HashMap<Integer, Long> temp = PeerProcess.peersList.get(remLIdx).getDataStats();
 								temp.put(remPeerID, (long)0);
 								PeerProcess.peersList.get(remPeerID).setDataStats(temp);
 							}
-							HashMap<Integer, Long> temp = PeerProcess.peersList.get(remPeerID).getDataStats();
-							temp.put(remPeerID, PeerProcess.peersList.get(remPeerID).getDataStats().get(remPeerID) + pSize);
-							PeerProcess.peersList.get(remPeerID).setDataStats(temp);
-							System.out.println(PeerProcess.peersList.get(remPeerID).getDataStats());
+							HashMap<Integer, Long> temp = PeerProcess.peersList.get(remLIdx).getDataStats();
+							temp.put(remPeerID, PeerProcess.peersList.get(remLIdx).getDataStats().get(remPeerID) + pSize);
+							PeerProcess.peersList.get(remLIdx).setDataStats(temp);
+							System.out.println(PeerProcess.peersList.get(remLIdx).getDataStats());
 							Thread.sleep(30);
 						}
 					} catch(Exception e)
