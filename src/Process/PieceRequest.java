@@ -235,7 +235,7 @@ public class PieceRequest extends Thread{
 			Logger.closeLogger();
 		}
 		
-		//System.exit(0);
+		System.exit(0);
 	}
 
 
