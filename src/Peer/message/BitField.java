@@ -31,7 +31,7 @@ public class BitField
 		
 		if(!completeFile)
 		{
-			for(int j=0;j<payload_len;j++)
+			for(int j=0;j<payload.length;j++)
 			{
 				i +=1;
 				bitfield[j] = 0; 		//initiliaze bitfield to zero if file not present
@@ -39,7 +39,7 @@ public class BitField
 		}
 		else
 		{
-			for(int j=0;j<payload_len-1;j++)
+			for(int j=0;j<payload.length-1;j++)
 			{
 				i +=1;
 				for(int k=0;k<8;k++)
@@ -58,8 +58,7 @@ public class BitField
 	
 	public static void updateBitField(int piece_idx) 
 	{
-		int a = (piece_idx-1)/8;
-		int b = 7 - ((piece_idx-1) % 8);
-		bitfield[a+5] = (byte) (bitfield[a+5] | (1<<b));
+		int pos = piece_idx - 1;
+		bitfield[ (pos/8)+5] = (byte) (bitfield[( pos/8)+5] | (1<<(7 - (pos % 8))));
 	}
 }
