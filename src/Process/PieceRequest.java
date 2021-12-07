@@ -307,7 +307,7 @@ public class PieceRequest extends Thread{
 			char[] y1 = x1.toCharArray();
 			int[] z1 = new int[8];
 			
-			for(int i = 0; i < y.length; i++)
+			for(int i = 0; i < y1.length; i++)
 			{
 				z1[i] = y1[i] - 48;
 			}
@@ -389,7 +389,7 @@ public class PieceRequest extends Thread{
 		
 		int choice = decideOption(nMissingPieces);
 		int piece = choices[choice];
-		System.out.println("Requsted Piece "+piece);
+		System.out.println("Requested Piece "+piece);
 		return (piece + 1);
 	}
 
@@ -399,8 +399,7 @@ public class PieceRequest extends Thread{
 	private int decideOption(int nMissingPieces) {
 		
 		Random rand = new Random();
-		int randomChoice = rand.nextInt(nMissingPieces);
-		return randomChoice;
+		return rand.nextInt(nMissingPieces);
 	}
 
 
