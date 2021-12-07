@@ -103,6 +103,7 @@ public class PieceRequest extends Thread{
 					{
 						field = peer.getBitfield();
 						getPiece = getPieceInfo(field, BitField.bitfield);
+						System.out.println("Here");
 						if(getPiece == 0)
 						{
 							peer.setInterested(false);
@@ -371,7 +372,7 @@ public class PieceRequest extends Thread{
 		
 		int choice = decideOption(nMissingPieces);
 		int piece = choices[choice];
-		System.out.println("Reqeusted Piece "+piece);
+		System.out.println("Requsted Piece "+piece);
 		return (piece + 1);
 	}
 
