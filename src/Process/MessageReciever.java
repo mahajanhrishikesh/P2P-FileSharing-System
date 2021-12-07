@@ -28,15 +28,7 @@ public class MessageReciever extends Thread{
 		
 		Iterator<Peer> itr = PeerProcess.peersList.listIterator();
 		
-		while(itr.hasNext())
-		{
-			Peer peer = (Peer) itr.next();
-			if(peer.getSock().equals(sock))
-			{
-				remPeerID = peer.getPeerID();
-				System.out.println("Expected ID: "+remID+" received peer ID: "+remPeerID);
-			}
-		}
+		remPeerID = remID;
 	}
 
 
