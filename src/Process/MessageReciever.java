@@ -46,7 +46,7 @@ public class MessageReciever extends Thread{
 		{
 			byte[] message = recieveMessage();
 			int type = message[4];
-			System.out.println("Type: "+type);
+			System.out.println("Typ: "+type);
 			
 			switch (type) {
 			case 0: {
