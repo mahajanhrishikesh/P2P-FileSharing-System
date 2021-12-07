@@ -399,7 +399,9 @@ public class PieceRequest extends Thread{
 	private int decideOption(int nMissingPieces) {
 		
 		Random rand = new Random();
-		return rand.nextInt(nMissingPieces);
+		int rPID = rand.nextInt(nMissingPieces);
+		System.out.println(rPID);
+		return rPID;
 	}
 
 
