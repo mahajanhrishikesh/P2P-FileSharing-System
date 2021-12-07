@@ -211,10 +211,10 @@ public class MessageReciever extends Thread{
 					Iterator<CompleteFile> itr = PeerProcess.hasFullFile.iterator();
 					while(itr.hasNext())
 					{
-						CompleteFile peer = (CompleteFile) itr.next();
-						if(peer.getSocket().equals(sock))
+						CompleteFile cf = (CompleteFile) itr.next();
+						if(cf.getSocket().equals(sock))
 						{
-							peer.setHasFullFile(true);
+							cf.setHasFullFile(true);
 							break;
 						}
 					}
