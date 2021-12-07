@@ -205,6 +205,7 @@ public class MessageReciever extends Thread{
 			
 			case 8:
 			{
+				System.out.println("Sending Full Signal");
 				synchronized(PeerProcess.hasFullFile)
 				{
 					Iterator<CompleteFile> itr = PeerProcess.hasFullFile.iterator();
