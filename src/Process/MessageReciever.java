@@ -122,6 +122,8 @@ public class MessageReciever extends Thread{
 				}
 				int nPiece = ByteBuffer.wrap(t).getInt();
 				Integer i = new Integer(nPiece);
+				System.out.println("nPiece: "+nPiece);
+				System.out.println("i: "+i);
 				Piece p = PeerProcess.enumPieces.get(i);
 				
 				synchronized(PeerProcess.msgBody)
