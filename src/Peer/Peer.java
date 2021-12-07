@@ -1,6 +1,7 @@
 package Peer;
 
 import java.net.Socket;
+import java.util.HashMap;
 
 public class Peer {
 	private int persPeerID;
@@ -8,6 +9,13 @@ public class Peer {
 	private int PeerID;
 	private boolean interested;
 	private byte[] bitfield;
+	public static HashMap<Integer, Long> dataStats = new HashMap<>();
+	public static HashMap<Integer, Long> getDataStats() {
+		return dataStats;
+	}
+	public static void setDataStats(HashMap<Integer, Long> dataStats) {
+		Peer.dataStats = dataStats;
+	}
 	public int getPersPeerID() {
 		return persPeerID;
 	}

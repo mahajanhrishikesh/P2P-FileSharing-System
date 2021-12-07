@@ -39,7 +39,7 @@ public class MessageReciever extends Thread{
 		{
 			byte[] message = recieveMessage();
 			int type = message[4];
-			System.out.println("Typ: "+type);
+			System.out.println("Type: "+type);
 			
 			switch (type) {
 			case 0: {
@@ -165,14 +165,14 @@ public class MessageReciever extends Thread{
 					}
 					/*******Adding CUC Logic*******/
 					try {
-						synchronized(PeerProcess.dataStats)
+						synchronized(PeerProcess.peersList)
 						{
-							if(!PeerProcess.dataStats.containsKey(remPeerID))
+							if(!PeerProcess.peersList.get(remPeerID).getDataStats().containsKey(remPeerID))
 							{
-								PeerProcess.dataStats.put(remPeerID, (long)0);
+								PeerProcess.peersList.get(remPeerID).getDataStats().put(remPeerID, (long)0);
 							}
-							PeerProcess.dataStats.put(remPeerID, PeerProcess.dataStats.get(remPeerID) + pSize);
-							//System.out.println(PeerProcess.dataStats.get(1001));
+							PeerProcess.peersList.get(remPeerID).getDataStats().put(remPeerID, PeerProcess.peersList.get(remPeerID).getDataStats().get(remPeerID) + pSize);
+							System.out.println(PeerProcess.peersList.get(remPeerID).getDataStats().get(remPeerID));
 							Thread.sleep(30);
 						}
 					} catch(Exception e)

@@ -25,7 +25,6 @@ public class PeerProcess {
 	public static ArrayList<Peer> peersList = new ArrayList<Peer>();
 	public static ArrayList<Integer> peerIDList;
 	public static ArrayList<Integer> prefPeerIDList;
-	public static HashMap<Integer, Long> dataStats = new HashMap<>();
 	public static LinkedList<MsgBody> msgPool = new LinkedList<MsgBody>();
 	public static ArrayList<CompleteFile> hasFullFile = new ArrayList<CompleteFile>();
 	
