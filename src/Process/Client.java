@@ -94,10 +94,10 @@ public class Client extends Thread{
 			    		peer.setSock(sock);
 			    		peer.setPeerID(Integer.parseInt(infoArr[0]));
 			    		
-			    		sendBitField(sock);
+			    		
 			    		byte[] rcvdfield = recieveBitField(sock);
 			    		peer.setBitfield(rcvdfield);
-			    		
+			    		sendBitField(sock);
 			    		peer.setInterested(false);
 			    		
 			    		synchronized (PeerProcess.peersList)
