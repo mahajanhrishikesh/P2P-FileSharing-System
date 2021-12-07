@@ -29,7 +29,7 @@ public class PieceRequest extends Thread{
 
 
 
-	public PieceRequest(int parseInt, int nPieces, boolean completeFile, long fSize, long pSize) {
+	public PieceRequest(int peerID, int nPieces, boolean completeFile, long fSize, long pSize) {
 		this.peerID = peerID;
 		this.nPieces = nPieces;
 		this.completeFile = completeFile;
@@ -60,6 +60,7 @@ public class PieceRequest extends Thread{
 				while(itr.hasNext())
 				{
 					peer = (Peer) itr.next();
+					System.out.println("peer.getPeerID(): "+peer.getPeerID());
 					if(peer.getPeerID() == peerID)
 					{
 						persPeerID = peer.getPersPeerID();
@@ -183,7 +184,7 @@ public class PieceRequest extends Thread{
 								mBody.setSock(sock);
 								mBody.setMessage(request.request);
 								PeerProcess.msgBody.add(mBody);
-								System.out.println("5 MBody touched by "+peer.getPeerID());
+								System.out.println("5 MBody touched by "+peer.getPeerID()+"");
 							}
 						}
 					}
