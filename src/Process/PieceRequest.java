@@ -216,7 +216,7 @@ public class PieceRequest extends Thread{
 				e.printStackTrace();
 			}
 			
-			if(status == true && PeerProcess.msgBody.isEmpty())
+			if(status == false && PeerProcess.msgBody.isEmpty())
 			{
 				break;
 			}
