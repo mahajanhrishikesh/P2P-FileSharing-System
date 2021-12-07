@@ -75,11 +75,45 @@ public class PeerProcess {
 		}
 		else if(peerProcess.completeFile == true)
 		{
+			// Since server has full file the enumPieces HashMap will be populated with the
+			// data from the file present on the server itself.
 			FileParser fileParser = new FileParser(peerProcess.peerID, fName, peerProcess.pSize);
 			enumPieces = fileParser.fileReader();
-			
-			Server s = new Server(peerProcess.PORT, peerProcess.peerID, peerProcess.completeFile, peerProcess.nPieces, peerProcess.fSize, peerProcess.pSize);
-			s.start();
+			if(checkFileDetails(enumPieces, peerProcess.fSize, peerProcess.pSize))
+			{
+				System.out.println("Read File "+fName);
+				Server s = new Server(peerProcess.PORT, peerProcess.peerID, peerProcess.completeFile, peerProcess.nPieces, peerProcess.fSize, peerProcess.pSize);
+				s.start();
+			}
+			else
+			{
+				System.out.println("File corrupted.");
+				System.exit(0);
+			}
 		}
+	}
+
+	/**
+	 * Checks if the expected file piece count and the recently received file piece count
+	 * match
+	 * @param enumPieces2 Enumerated Piece List of all the pieces
+	 * @param fSize2 Expected file size
+	 * @param pSize2 size per piece
+	 * @return
+	 */
+	private static boolean checkFileDetails(HashMap<Integer, Piece> enumPieces2, long fSize2, long pSize2) {
+		
+		boolean fileOk = false;
+		int numberOfPieces = enumPieces2.size();
+		int expectedNPieces = (int)Math.ceil((double)fSize2/pSize2);
+		if(numberOfPieces == expectedNPieces)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
 	}
 }

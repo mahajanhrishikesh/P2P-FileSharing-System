@@ -37,7 +37,6 @@ public class FileParser
 				pieceNo++;
 				ipLen = IS.read(ipBuffer);
 			}
-			System.out.println("Total pieces = "+pieceMap.size());
 			
 			IS.close();
 		}
