@@ -168,7 +168,19 @@ public class MessageReciever extends Thread{
 					try {
 						synchronized(PeerProcess.peersList)
 						{
-							if(!PeerProcess.peersList.get(remPeerID).getDataStats().containsKey(remPeerID))
+							Iterator<Peer> itr = PeerProcess.peersList.iterator();
+							int tempI=0;
+							int remLIdx = 0;
+							while(itr.hasNext())
+							{
+								int next = itr.next().getPeerID();
+								tempI++;
+								if(remPeerID == next)
+								{
+									remLIdx = tempI;
+								}
+							}
+							if(!PeerProcess.peersList.get(remLIdx).getDataStats().containsKey(remPeerID))
 							{
 								HashMap<Integer, Long> temp = PeerProcess.peersList.get(remPeerID).getDataStats();
 								temp.put(remPeerID, (long)0);
