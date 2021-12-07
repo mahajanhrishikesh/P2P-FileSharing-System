@@ -246,7 +246,8 @@ public class MessageReciever extends Thread{
 			msg = (byte[]) in.readObject();
 		} catch (IOException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.exit(0);
+			System.out.println("OOPS");
+			e.printStackTrace();
 		}
 		return msg;
 	}
