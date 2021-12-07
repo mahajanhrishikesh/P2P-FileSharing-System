@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import FileManagement.Logger;
@@ -169,10 +170,14 @@ public class MessageReciever extends Thread{
 						{
 							if(!PeerProcess.peersList.get(remPeerID).getDataStats().containsKey(remPeerID))
 							{
-								PeerProcess.peersList.get(remPeerID).getDataStats().put(remPeerID, (long)0);
+								HashMap<Integer, Long> temp = PeerProcess.peersList.get(remPeerID).getDataStats();
+								temp.put(remPeerID, (long)0);
+								PeerProcess.peersList.get(remPeerID).setDataStats(temp);
 							}
-							PeerProcess.peersList.get(remPeerID).getDataStats().put(remPeerID, PeerProcess.peersList.get(remPeerID).getDataStats().get(remPeerID) + pSize);
-							System.out.println(PeerProcess.peersList.get(remPeerID).getDataStats().size());
+							HashMap<Integer, Long> temp = PeerProcess.peersList.get(remPeerID).getDataStats();
+							temp.put(remPeerID, PeerProcess.peersList.get(remPeerID).getDataStats().get(remPeerID) + pSize);
+							PeerProcess.peersList.get(remPeerID).setDataStats(temp);
+							System.out.println(PeerProcess.peersList.get(remPeerID).getDataStats());
 							Thread.sleep(30);
 						}
 					} catch(Exception e)
