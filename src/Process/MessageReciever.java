@@ -211,13 +211,8 @@ public class MessageReciever extends Thread{
 					Iterator<CompleteFile> itr = PeerProcess.hasFullFile.iterator();
 					while(itr.hasNext())
 					{
-<<<<<<< HEAD
 						CompleteFile cf = (CompleteFile) itr.next();
-						if(cf.getSocket().equals(sock))
-=======
-						CompleteFile peer = (CompleteFile) itr.next();
-						if(peer.getSock().equals(sock))
->>>>>>> branch 'master' of https://github.com/mahajanhrishikesh/P2P-FileSharing-System.git
+						if(cf.getSock().equals(sock))
 						{
 							cf.setHasFullFile(true);
 							break;
