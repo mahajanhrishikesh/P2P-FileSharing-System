@@ -29,6 +29,10 @@ public class MessageSender extends Thread{
 					Socket sock = mBody.getSock();
 					byte[] message = mBody.getMessage();
 					sendMessage(sock, message);
+					if(sock==null)
+					{
+						System.out.println("Null Sock");
+					}
 				}
 			}
 		}
