@@ -40,6 +40,7 @@ public class MessageSender extends Thread{
 			ObjectOutputStream out = new ObjectOutputStream(sock.getOutputStream());
 			synchronized (sock)
 			{
+				System.out.println(message);
 				out.writeObject(message);
 			}
 		} catch (IOException e) {
