@@ -25,6 +25,8 @@ public class MessageSender extends Thread{
 			{
 				synchronized (PeerProcess.msgPool)
 				{
+					// Pick & store the first entered message from the main process 
+					// and delete it
 					MsgBody mBody = PeerProcess.msgPool.poll();
 					Socket sock = mBody.getSock();
 					byte[] message = mBody.getMessage();
@@ -62,6 +64,11 @@ public class MessageSender extends Thread{
 		
 	}
 
+	/**
+	 * Checks the validity of the message before sending it on the output line.
+	 * @param message message content of the message found in the pool
+	 * @return boolean result stating whether message is valid or not
+	 */
 	private boolean checkMessage(byte[] message) {
 		boolean chk = true;
 		int msgType = message[4];

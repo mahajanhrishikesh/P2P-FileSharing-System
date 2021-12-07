@@ -170,6 +170,19 @@ public class MessageReciever extends Thread{
 					{
 						e.printStackTrace();
 					}
+					/*******Adding CUC Logic*******/
+					try {
+						synchronized(PeerProcess.dataStats)
+						{
+							PeerProcess.dataStats.put(remPeerID, PeerProcess.dataStats.get(remPeerID) + pSize);
+							System.out.println(PeerProcess.dataStats.get(1001));
+							Thread.sleep(30);
+						}
+					} catch(Exception e)
+					{
+						e.printStackTrace();
+					}
+					/*******Adding CUC Logic*******/
 				}
 				
 				System.out.println("Piece "+ pIdx + "recieved from "+remPeerID);
