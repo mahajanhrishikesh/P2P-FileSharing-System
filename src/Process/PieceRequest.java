@@ -383,7 +383,7 @@ public class PieceRequest extends Thread{
 				z[j] = y[j] - 48;
 			}
 			
-			for(int j = 0; j < y.length; j++)
+			for(int j = 0; j < overflowBits; j++)
 			{
 				if(z[j] == 0)
 				{
