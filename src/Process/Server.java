@@ -91,7 +91,7 @@ public class Server extends Thread {
 			    		
 			    		CompleteFile completefile = new CompleteFile();
 			    		completefile.setSock(sock);
-			    		completefile.setHasFullFile(true);
+			    		completefile.setHasFullFile(false);
 			    		
 			    		PeerProcess.hasFullFile.add(completefile);
 			    		//System.out.println("File status checked");
