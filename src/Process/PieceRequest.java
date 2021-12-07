@@ -76,6 +76,7 @@ public class PieceRequest extends Thread{
 				}
 				
 				boolean fullFile = hasFullFile();
+				System.out.println("FullFile Boolean: "+fullFile);
 				
 				if(fullFile)
 				{
