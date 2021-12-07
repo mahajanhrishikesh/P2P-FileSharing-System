@@ -28,11 +28,17 @@ public class MessageSender extends Thread{
 					MsgBody mBody = PeerProcess.msgBody.poll();
 					Socket sock = mBody.getSock();
 					byte[] message = mBody.getMessage();
-					sendMessage(sock, message);
+					System.out.println(mBody.toString().length());
 					if(sock==null)
 					{
 						System.out.println("Null Sock");
 					}
+					else
+					{
+						System.out.println("Sock not null");
+					}
+					sendMessage(sock, message);
+					
 				}
 			}
 		}
