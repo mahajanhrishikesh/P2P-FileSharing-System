@@ -9,12 +9,12 @@ public class Peer {
 	private int PeerID;
 	private boolean interested;
 	private byte[] bitfield;
-	public static HashMap<Integer, Long> dataStats = new HashMap<>();
-	public static HashMap<Integer, Long> getDataStats() {
+	public HashMap<Integer, Long> dataStats = new HashMap<>();
+	public HashMap<Integer, Long> getDataStats() {
 		return dataStats;
 	}
-	public static void setDataStats(HashMap<Integer, Long> dataStats) {
-		Peer.dataStats = dataStats;
+	public void setDataStats(HashMap<Integer, Long> ds) {
+		dataStats = ds;
 	}
 	public int getPersPeerID() {
 		return persPeerID;
