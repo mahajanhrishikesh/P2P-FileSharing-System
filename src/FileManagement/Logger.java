@@ -175,4 +175,16 @@ public class Logger{
 		
 	}
 
+	public static void choked(int pId) {
+		try {
+			String date = dtf.format(now);
+			String str = date + " : Peer " + thisPeerID + " is choked by " + pId+ ".";
+			os.append(str);
+			os.newLine();
+			os.flush();
+		} catch(IOException e) {
+			System.err.println(e);
+		}
+	}
+
 }

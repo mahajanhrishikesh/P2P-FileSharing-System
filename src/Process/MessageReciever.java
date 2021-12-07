@@ -45,10 +45,16 @@ public class MessageReciever extends Thread{
 			switch (type) {
 			case 0: {
 				//Choke
+				System.out.println("Incoming Choke Message from Peer: " + remPeerID);
+				System.out.println();
+				Logger.choked(remPeerID);
 				break;
 			}
 			case 1: {
 				//UnChoke
+				System.out.println("Incoming UnChoke Message from Peer: " + remPeerID);
+				System.out.println();
+				Logger.unchockingNeighbor(remPeerID);
 				break;
 			}
 			case 2: {
@@ -66,6 +72,7 @@ public class MessageReciever extends Thread{
 				break;
 			}
 			case 4:{
+				// 
 				byte[] t = new byte[4];
 				int k = 5;
 				for(int i = 0; i<t.length; i++)

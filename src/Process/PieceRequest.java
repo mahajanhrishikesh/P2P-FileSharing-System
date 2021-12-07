@@ -43,7 +43,8 @@ public class PieceRequest extends Thread{
 	@Override
 	public void run()
 	{
-		
+		// If peer does not have complete file then it will extract the peer id and begin
+		// requesting pieces.
 		if(completeFile == false)
 		{
 			Peer peer = null;
@@ -52,7 +53,6 @@ public class PieceRequest extends Thread{
 			
 			synchronized(PeerProcess.peersList) {
 				Iterator<Peer> itr = PeerProcess.peersList.iterator();
-				//System.out.println("In here");
 				for(Peer p: PeerProcess.peersList)
 				{
 					System.out.println(p.getPersPeerID());
@@ -60,11 +60,9 @@ public class PieceRequest extends Thread{
 				while(itr.hasNext())
 				{
 					peer = (Peer) itr.next();
-					//System.out.println("peer.getPeerID(): "+peer.getPeerID());
 					if(peer.getPeerID() == peerID)
 					{
 						persPeerID = peer.getPersPeerID();
-						//System.out.println("PersPeerID: "+persPeerID);
 						sock = peer.getSock();
 						break;
 					}
@@ -73,7 +71,6 @@ public class PieceRequest extends Thread{
 			
 			while(true)
 			{
-				//System.out.println("Inside Piece Request.");
 				try {
 					Thread.sleep(20);
 				} catch (InterruptedException e) {
@@ -81,6 +78,7 @@ public class PieceRequest extends Thread{
 					e.printStackTrace();
 				}
 				
+				// checking if full file has been downloaded for further processing 
 				boolean fullFile = hasFullFile();
 				
 				if(fullFile)
@@ -91,6 +89,7 @@ public class PieceRequest extends Thread{
 						System.out.println("Finished Downloading.");
 						Logger.downloadComplete();
 						
+						//Merging file from the collected pieces
 						FileMerger mFile = new FileMerger();
 						mFile.reassemble(persPeerID, fSize, pSize, nPieces);
 						
@@ -105,6 +104,7 @@ public class PieceRequest extends Thread{
 				}
 				else
 				{
+					// If peer is interested in receiving the piece 
 					if(peer.isInterested())
 					{
 						field = peer.getBitfield();
@@ -117,10 +117,8 @@ public class PieceRequest extends Thread{
 							synchronized (PeerProcess.msgPool)
 							{
 								MsgBody mBody = new MsgBody();
-								//System.out.println("IsInterested sock");
 								mBody.setSock(sock);
 								mBody.setMessage(n.notInterestedMsg);
-								//System.out.println("1 MBody touched by "+peer.getPeerID());
 								PeerProcess.msgPool.add(mBody);
 							}
 							flag=true;
@@ -131,12 +129,9 @@ public class PieceRequest extends Thread{
 							synchronized (PeerProcess.msgPool)
 							{
 								MsgBody msg = new MsgBody();
-								//System.out.println("Request sock");
 								msg.setSock(sock);
 								msg.setMessage(r.request);
-								//System.out.println(peer.getPeerID());
 								PeerProcess.msgPool.add(msg);
-								//System.out.println("2 MBody touched by "+peer.getPeerID());
 							}
 						}
 					}
@@ -153,11 +148,9 @@ public class PieceRequest extends Thread{
 								synchronized (PeerProcess.msgPool)
 								{
 									MsgBody msg = new MsgBody();
-									//System.out.println("Get bitfield sock error");
 									msg.setSock(sock);
 									msg.setMessage(not.notInterestedMsg);
 									PeerProcess.msgPool.add(msg);
-									//System.out.println("3 MBody touched by "+peer.getPeerID());
 								}
 							}
 						}
@@ -170,12 +163,10 @@ public class PieceRequest extends Thread{
 							
 							synchronized (PeerProcess.msgPool)
 							{
-								//System.out.println("Interested Here");
 								MsgBody mBody = new MsgBody();
 								mBody.setSock(sock);
 								mBody.setMessage(i.interestedMsg);
 								PeerProcess.msgPool.add(mBody);
-								//System.out.println("4 MBody touched by "+peer.getPeerID());
 							}
 							Request request = new Request(getPiece);
 							synchronized (PeerProcess.msgPool)
@@ -184,7 +175,6 @@ public class PieceRequest extends Thread{
 								mBody.setSock(sock);
 								mBody.setMessage(request.request);
 								PeerProcess.msgPool.add(mBody);
-								//System.out.println("5 MBody touched by "+peer.getPeerID()+"");
 							}
 						}
 					}
@@ -194,16 +184,16 @@ public class PieceRequest extends Thread{
 			
 		}
 		
-		byte[] fullFileDownloaded = new byte[5];
+		byte[] contentFull = new byte[5];
 		
-		for(int j=0; j < fullFileDownloaded.length - 1; j++)
+		for(int j=0; j < contentFull.length - 1; j++)
 		{
-			fullFileDownloaded[j] = 0;
+			contentFull[j] = 0;
 		}
 		
-		fullFileDownloaded[4] = 8;
+		contentFull[4] = 8;
 		
-		sendFullFileDownloaded(fullFileDownloaded);
+		sendContentFull(contentFull);
 		
 		while(true)
 		{
@@ -260,7 +250,7 @@ public class PieceRequest extends Thread{
 
 
 
-	private void sendFullFileDownloaded(byte[] fullFileDownloaded) {
+	private void sendContentFull(byte[] contentFull) {
 		Iterator<CompleteFile> itr = PeerProcess.hasFullFile.iterator();
 		
 		while(itr.hasNext())
@@ -271,7 +261,7 @@ public class PieceRequest extends Thread{
 			{
 				MsgBody msgBody = new MsgBody();
 				msgBody.setSock(peer.getSock());
-				msgBody.setMessage(fullFileDownloaded);
+				msgBody.setMessage(contentFull);
 				PeerProcess.msgPool.add(msgBody);
 			}
 		}
@@ -384,24 +374,18 @@ public class PieceRequest extends Thread{
 			}
 		}
 		
-		int choice = decideOption(nMissingPieces);
+		Random rand = new Random();
+		
+		int choice = rand.nextInt(nMissingPieces);
 		int piece = choices[choice];
 		System.out.println("Requested Piece "+piece);
 		return (piece + 1);
 	}
 
-
-
-
-	private int decideOption(int nMissingPieces) {
-		
-		Random rand = new Random();
-		return rand.nextInt(nMissingPieces);
-	}
-
-
-
-
+	/**
+	 * Checks if full file is present 
+	 * @return status
+	 */
 	private boolean hasFullFile() {
 		
 		boolean completeFlag = true;

@@ -6,7 +6,13 @@ import Peer.PeerProcess;
 import Peer.message.Piece; 	
 public class FileMerger {
 
-	
+	/**
+	 * 
+	 * @param persPeerID
+	 * @param fSize
+	 * @param pSize
+	 * @param nPieces
+	 */
 	public void reassemble(int persPeerID, long fSize, long pSize, int nPieces) {
 		String directory = (new File(System.getProperty("user.dir")).getParent() + "/peer_" + persPeerID); File thisDir = new File(directory);
 		if (!thisDir.exists()) {

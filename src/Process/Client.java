@@ -28,6 +28,8 @@ public class Client extends Thread{
 	private long fSize;
 	private long pSize;
 	private boolean completeFile;
+	private String EXPECTED_HEADER_VALUE = "PEER2PEERCNGROUP280000000000";
+
 	
 	public Client(int peerID, boolean completeFile, int nPieces, long fSize, long pSize) {
 		
@@ -59,20 +61,24 @@ public class Client extends Thread{
 				handShakeSender(sock, sendHS.content);
 				System.out.println("Sent Handshake.");
 				
+				// Receiving handshake from recently connected peer
 				byte[] recvHSContent = handShakeReceiver(sock);
+				// Extracting head from content
 				String head = new String(Arrays.copyOfRange(recvHSContent, 0, 28), StandardCharsets.UTF_8);
 				System.out.println(head);
-				
+				//Extracting peer id from content 
 				String peerIDStr = new String(Arrays.copyOfRange(recvHSContent, 28, 32));
 			    String trimmedPeerID = peerIDStr.trim();
 			    int rcvdID = Integer.parseInt(trimmedPeerID);
-			    System.out.println(head);
-			    System.out.println(rcvdID);
-			    if(head.equals("PEER2PEERCNGROUP280000000000"))
+			    
+			    // Check header value
+			    if(head.equals(EXPECTED_HEADER_VALUE))
 			    {
 			    	System.out.println("Head confirmed.");
 			    	boolean flag = false;
 			    	Iterator<Integer> itr2 = PeerProcess.peerIDList.iterator();
+			    	
+			    	// Checking for ID in handshake content
 			    	while(itr2.hasNext())
 			    	{
 			    		int tid = itr2.next();
@@ -89,14 +95,17 @@ public class Client extends Thread{
 			    	
 			    	if(flag)
 			    	{
+			    		//Populate Peer Object with appropriate values.
 			    		Peer peer = new Peer();
 			    		peer.setPersPeerID(persPeerID);
 			    		peer.setSock(sock);
 			    		peer.setPeerID(Integer.parseInt(infoArr[0]));
 			    		
-			    		
+			    		// Receive bitfield from the peer
 			    		byte[] rcvdfield = recieveBitField(sock);
 			    		peer.setBitfield(rcvdfield);
+			    		
+			    		// Send bitfield of available pieces to connected peer
 			    		sendBitField(sock);
 			    		peer.setInterested(false);
 			    		
@@ -121,15 +130,19 @@ public class Client extends Thread{
 			    		System.out.println();
 			    		Logger.makeTCPConnection(Integer.parseInt(infoArr[0]));
 			    		
-			    		
+			    		// Collect any messages present in the message pool and send them 
+			    		// in a synchronous fashion
 			    		MessageSender ms = new MessageSender();
 			    		ms.start();
 			    		System.out.println("Sending Message");
 			    		
+			    		// Keep requesting new pieces, PieceRequest program will terminate
+			    		// program thread if all peers finish downloading.
 			    		PieceRequest pr = new PieceRequest(Integer.parseInt(infoArr[0]), nPieces, completeFile, fSize, pSize);
 			    		pr.start();
 			    		System.out.println("Requested Piece");
 			    		
+			    		// Receive & Process messages by type
 			    		MessageReciever mr = new MessageReciever(persPeerID, rcvdID, sock, pSize);
 			    		mr.start();
 			    	}
@@ -148,6 +161,12 @@ public class Client extends Thread{
 		
 	}
 
+	/****************OUTGOING DATA FUNCTIONS*****************/
+	
+	/**
+	 * Sends the bitfield attribute of message type BitField.
+	 * @param sock Socket generated and set beforehand for ongoing connection
+	 */
 	private void sendBitField(Socket sock) {
 		
 		try {
@@ -158,7 +177,33 @@ public class Client extends Thread{
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Sends the already generated handshake via given socket
+	 * @param sock Socket generated and set beforehand for ongoing connection
+	 * @param content Content for handshake along with header stored here
+	 */
+	private void handShakeSender(Socket sock, byte[] content) {
+		System.out.println("Inside HSS");
+		ObjectOutputStream out;
+		try {
+			out = new ObjectOutputStream(sock.getOutputStream());
+			out.writeObject(content);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
 
+	/******************************************************/
+
+	/****************INCOMING DATA FUNCTIONS*****************/
+		
+	/**
+	 * Receives the bitfield from peer
+	 * @param sock Socket generated and set beforehand for ongoing connection
+	 * @return
+	 */
 	private byte[] recieveBitField(Socket sock) {
 		byte[] bf = null;
 		ObjectInputStream in;
@@ -172,6 +217,11 @@ public class Client extends Thread{
 		return bf;
 	}
 
+	/**
+	 * Receives the handshake from connected peer
+	 * @param sock Socket generated and set beforehand for ongoing connection
+	 * @return Receives new handshake object 
+	 */
 	private byte[] handShakeReceiver(Socket sock) {
 		System.out.println("Inside HSR");
 		byte[] content = null;
@@ -186,17 +236,7 @@ public class Client extends Thread{
 		}
 		return content;
 	}
-
-	private void handShakeSender(Socket sock, byte[] content) {
-		System.out.println("Inside HSS");
-		ObjectOutputStream out;
-		try {
-			out = new ObjectOutputStream(sock.getOutputStream());
-			out.writeObject(content);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-	}
+	/******************************************************/
+	
 
 }
