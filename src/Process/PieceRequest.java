@@ -72,7 +72,7 @@ public class PieceRequest extends Thread{
 			
 			while(true)
 			{
-				System.out.println("Inside Piece Request.");
+				//System.out.println("Inside Piece Request.");
 				try {
 					Thread.sleep(20);
 				} catch (InterruptedException e) {
@@ -119,6 +119,7 @@ public class PieceRequest extends Thread{
 								System.out.println("IsInterested sock");
 								mBody.setSock(sock);
 								mBody.setMessage(n.notInterestedMsg);
+								System.out.println("1 MBody touched by "+peer.getPeerID());
 								PeerProcess.msgBody.add(mBody);
 							}
 							flag=true;
@@ -132,7 +133,9 @@ public class PieceRequest extends Thread{
 								System.out.println("Request sock");
 								msg.setSock(sock);
 								msg.setMessage(r.request);
+								System.out.println(peer.getPeerID());
 								PeerProcess.msgBody.add(msg);
+								System.out.println("2 MBody touched by "+peer.getPeerID());
 							}
 						}
 					}
@@ -153,6 +156,7 @@ public class PieceRequest extends Thread{
 									msg.setSock(sock);
 									msg.setMessage(not.notInterestedMsg);
 									PeerProcess.msgBody.add(msg);
+									System.out.println("3 MBody touched by "+peer.getPeerID());
 								}
 							}
 						}
@@ -170,6 +174,7 @@ public class PieceRequest extends Thread{
 								mBody.setSock(sock);
 								mBody.setMessage(i.interestedMsg);
 								PeerProcess.msgBody.add(mBody);
+								System.out.println("4 MBody touched by "+peer.getPeerID());
 							}
 							Request request = new Request(getPiece);
 							synchronized (PeerProcess.msgBody)
@@ -178,6 +183,7 @@ public class PieceRequest extends Thread{
 								mBody.setSock(sock);
 								mBody.setMessage(request.request);
 								PeerProcess.msgBody.add(mBody);
+								System.out.println("5 MBody touched by "+peer.getPeerID());
 							}
 						}
 					}
@@ -411,7 +417,6 @@ public class PieceRequest extends Thread{
 				break;
 			}
 		}
-		System.out.println("Complete flag"+completeFlag);
 		if(completeFlag)
 		{
 			int overflowBits = nPieces % 8;
