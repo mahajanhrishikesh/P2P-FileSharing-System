@@ -149,7 +149,7 @@ public class PieceRequest extends Thread{
 								synchronized (PeerProcess.msgBody)
 								{
 									MsgBody msg = new MsgBody();
-									System.out.println("Get bitfield sock");
+									System.out.println("Get bitfield sock ");
 									msg.setSock(sock);
 									msg.setMessage(not.notInterestedMsg);
 									PeerProcess.msgBody.add(msg);
