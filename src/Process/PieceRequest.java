@@ -67,7 +67,7 @@ public class PieceRequest extends Thread{
 			
 			while(true)
 			{
-				//System.out.println("Inside Piece Request.");
+				System.out.println("Inside Piece Request.");
 				try {
 					Thread.sleep(20);
 				} catch (InterruptedException e) {
@@ -172,7 +172,6 @@ public class PieceRequest extends Thread{
 				break;
 			}
 		}
-		
 		if(!Logger.fDoneFlag)
 		{
 			Logger.fDoneFlag = true;
