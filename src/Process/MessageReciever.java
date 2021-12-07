@@ -174,6 +174,10 @@ public class MessageReciever extends Thread{
 					try {
 						synchronized(PeerProcess.dataStats)
 						{
+							if(!PeerProcess.dataStats.containsKey(remPeerID))
+							{
+								PeerProcess.dataStats.put(remPeerID, (long)0);
+							}
 							PeerProcess.dataStats.put(remPeerID, PeerProcess.dataStats.get(remPeerID) + pSize);
 							System.out.println(PeerProcess.dataStats.get(1001));
 							Thread.sleep(30);
