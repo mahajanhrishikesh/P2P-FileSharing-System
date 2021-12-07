@@ -147,7 +147,7 @@ public class PieceRequest extends Thread{
 						
 						if(getPiece == 0)
 						{
-							if(flag)
+							if(!flag)
 							{
 								NotInterested not = new NotInterested();
 								synchronized (PeerProcess.msgBody)
@@ -312,7 +312,7 @@ public class PieceRequest extends Thread{
 				z1[i] = y1[i] - 48;
 			}
 			
-			if(j < bitfield.length - 1)
+			if(j < (bitfield.length - 1))
 			{
 				for(int i = 0; i < z1.length; i++)
 				{
