@@ -81,10 +81,11 @@ public class Server extends Thread {
 			    		peer.setSock(sock);
 			    		peer.setPeerID(rcvdID);
 			    		
+			    		sendBitField(sock);
 			    		byte[] rcvdfield = recieveBitField(sock);
 			    		peer.setBitfield(rcvdfield);
 			    		//System.out.println("Bitfield done");
-			    		sendBitField(sock);
+			    		
 			    		peer.setInterested(false);
 			    		
 			    		PeerProcess.peersList.add(peer);
