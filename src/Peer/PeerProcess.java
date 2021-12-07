@@ -42,6 +42,7 @@ public class PeerProcess {
 		peerIDList = peerInfo.getPeerIDs();
 		
 		//Populate current peer data
+		peerProcess.fName= (String)commonFileData.get("FileName");
 		peerProcess.fSize = Long.parseLong((String) commonFileData.get("FileSize"));
 		peerProcess.pSize = Long.parseLong((String) commonFileData.get("PieceSize"));
 		peerProcess.nPieces = (int)Math.ceil((double)peerProcess.fSize/peerProcess.pSize);

@@ -28,13 +28,14 @@ public class FileParser
 			InputStream IS = new FileInputStream(myFile);
 			byte[] ipBuffer = new byte[(int)pieceSize];
 			
-			int ipLen = IS.read(ipBuffer);
+			int ipLen=IS.read(ipBuffer); 
 			Piece temp;
 			while(ipLen > 0)
 			{
 				temp = new Piece(pieceNo, ipBuffer);
 				pieceMap.put(pieceNo, temp);
 				pieceNo++;
+				ipLen = IS.read(ipBuffer);
 			}
 			
 			IS.close();

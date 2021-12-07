@@ -35,7 +35,15 @@ public class PeerInfoFileParser {
 					peerID = Integer.parseInt(arr[0]);
 					peerIP = arr[1];
 					PORT = Integer.parseInt(arr[2]);
-					completeFile = Boolean.parseBoolean(arr[3]);
+					if(Integer.parseInt(arr[3])==1)
+					{
+						completeFile = true;
+					}
+					else
+					{
+						completeFile = false;
+					}
+					System.out.println(completeFile);
 				}
 			}
 			sc.close();
