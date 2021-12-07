@@ -52,7 +52,11 @@ public class PieceRequest extends Thread{
 			
 			synchronized(PeerProcess.peersList) {
 				Iterator<Peer> itr = PeerProcess.peersList.iterator();
-				
+				System.out.println("In here");
+				for(Peer p: PeerProcess.peersList)
+				{
+					System.out.println(p.getPersPeerID());
+				}
 				while(itr.hasNext())
 				{
 					peer = (Peer) itr.next();
