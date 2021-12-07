@@ -127,7 +127,7 @@ public class MessageReciever extends Thread{
 				synchronized(PeerProcess.msgBody)
 				{
 					MsgBody mBody = new MsgBody();
-					mBody.setSocket(sock);
+					mBody.setSock(sock);
 					mBody.setMessage(p.pieceData);
 					PeerProcess.msgBody.add(mBody);
 				}
@@ -195,7 +195,7 @@ public class MessageReciever extends Thread{
 					synchronized (PeerProcess.msgBody)
 					{
 						MsgBody mBody = new MsgBody();
-						mBody.setSocket(peer.getSock());
+						mBody.setSock(peer.getSock());
 						mBody.setMessage(have.have);
 						PeerProcess.msgBody.add(mBody);
 					}
@@ -211,8 +211,13 @@ public class MessageReciever extends Thread{
 					Iterator<CompleteFile> itr = PeerProcess.hasFullFile.iterator();
 					while(itr.hasNext())
 					{
+<<<<<<< HEAD
 						CompleteFile cf = (CompleteFile) itr.next();
 						if(cf.getSocket().equals(sock))
+=======
+						CompleteFile peer = (CompleteFile) itr.next();
+						if(peer.getSock().equals(sock))
+>>>>>>> branch 'master' of https://github.com/mahajanhrishikesh/P2P-FileSharing-System.git
 						{
 							cf.setHasFullFile(true);
 							break;

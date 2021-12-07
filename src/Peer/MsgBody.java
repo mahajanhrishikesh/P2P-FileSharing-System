@@ -6,7 +6,7 @@ public class MsgBody
 	private Socket sock;
 	private byte[] msg;
 	
-	public Socket getSocket() 
+	public Socket getSock() 
 	{
 		return sock;
 	}
@@ -16,7 +16,7 @@ public class MsgBody
 		return msg;
 	}
 	
-	public void setSocket(Socket sock) 
+	public void setSock(Socket sock) 
 	{
 		this.sock = sock;
 	}

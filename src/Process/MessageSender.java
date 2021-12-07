@@ -26,7 +26,7 @@ public class MessageSender extends Thread{
 				synchronized (PeerProcess.msgBody)
 				{
 					MsgBody mBody = PeerProcess.msgBody.poll();
-					Socket sock = mBody.getSocket();
+					Socket sock = mBody.getSock();
 					byte[] message = mBody.getMessage();
 					sendMessage(sock, message);
 				}
