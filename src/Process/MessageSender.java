@@ -25,10 +25,11 @@ public class MessageSender extends Thread{
 			{
 				synchronized (PeerProcess.msgBody)
 				{
+					System.out.println(PeerProcess.msgBody.size());
 					MsgBody mBody = PeerProcess.msgBody.poll();
 					Socket sock = mBody.getSock();
 					byte[] message = mBody.getMessage();
-					System.out.println(PeerProcess.msgBody.size());
+					
 					if(sock==null)
 					{
 						System.out.println("Null Sock");
