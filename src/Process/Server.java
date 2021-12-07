@@ -98,7 +98,7 @@ public class Server extends Thread {
 			    		//System.out.println("File status checked");
 			    		System.out.println("Incoming Connection Request From PeerID: "+rcvdID);
 			    		System.out.println();
-			    		Logger.makeTCPConnection(rcvdID);
+			    		Logger.madeTCPConnected(rcvdID);
 			    	
 			    		MessageSender ms = new MessageSender();
 			    		ms.start();
