@@ -83,6 +83,25 @@ public class PeerProcess {
 			if(checkFileDetails(enumPieces, peerProcess.fSize, peerProcess.pSize))
 			{
 				System.out.println("Read File "+fName);
+				for(Peer p: peerProcess.peersList)
+				{
+					if (p.getPeerID() == peerProcess.peerID)
+					{
+						p.setImdone(true);
+					}
+				}
+				boolean checker = true;
+				for(Peer p: peerProcess.peersList)
+				{
+					if(!p.isImdone())
+					{
+						checker = false;
+					}
+				}
+				if(checker)
+				{
+					System.exit(0);
+				}
 				Server s = new Server(peerProcess.PORT, peerProcess.peerID, peerProcess.completeFile, peerProcess.nPieces, peerProcess.fSize, peerProcess.pSize);
 				s.start();
 			}

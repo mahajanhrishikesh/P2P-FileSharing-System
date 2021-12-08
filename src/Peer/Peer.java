@@ -9,6 +9,13 @@ public class Peer {
 	private int PeerID;
 	private boolean interested;
 	private byte[] bitfield;
+	private boolean imdone = false;
+	public boolean isImdone() {
+		return imdone;
+	}
+	public void setImdone(boolean imdone) {
+		this.imdone = imdone;
+	}
 	public HashMap<Integer, Long> dataStats = new HashMap<>();
 	public HashMap<Integer, Long> getDataStats() {
 		return dataStats;
