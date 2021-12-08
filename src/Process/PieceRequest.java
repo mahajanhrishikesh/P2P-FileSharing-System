@@ -1,6 +1,7 @@
 package Process;
 
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -94,6 +95,7 @@ public class PieceRequest extends Thread{
 						FileMerger mFile = new FileMerger();
 						mFile.reassemble(persPeerID, fSize, pSize, nPieces);
 						
+						// When last peer is done everything shall shut down.
 						for(Peer p: PeerProcess.peersList)
 						{
 							if (p.getPeerID() == peerID)
@@ -112,6 +114,19 @@ public class PieceRequest extends Thread{
 						}
 						if(checker)
 						{
+							if(!Logger.fDoneFlag)
+							{
+								Logger.fDoneFlag = true;
+								
+								try {
+									Thread.sleep(1000);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								
+								Logger.closeLogger();
+							}
 							System.exit(0);
 						}
 						
@@ -217,58 +232,7 @@ public class PieceRequest extends Thread{
 		
 		sendContentFull(contentFull);
 		
-		while(true)
-		{
-			boolean status = checkAllPeerStatus();
-			
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			if(status == false && PeerProcess.msgPool.isEmpty())
-			{
-				break;
-			}
-		}
-		if(!Logger.fDoneFlag)
-		{
-			Logger.fDoneFlag = true;
-			
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			Logger.closeLogger();
-		}
-		System.exit(0);
 	}
-
-
-
-
-	private boolean checkAllPeerStatus() {
-		boolean allFlag = true;
-		Iterator<CompleteFile> itr = PeerProcess.hasFullFile.iterator();
-		
-		while(itr.hasNext())
-		{
-			CompleteFile cf = (CompleteFile)itr.next();
-			if(cf.hasFullFile())
-			{
-				allFlag = false;
-				break;
-			}
-		}
-		return allFlag;
-	}
-
-
 
 
 	private void sendContentFull(byte[] contentFull) {
