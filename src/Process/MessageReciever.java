@@ -169,7 +169,7 @@ public class MessageReciever extends Thread{
 					{
 						e.printStackTrace();
 					}
-					/*******Adding CUC Logic*******/
+					/*******Adding CUC Logic*******
 					try {
 						synchronized(PeerProcess.peersList)
 						{
