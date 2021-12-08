@@ -134,13 +134,13 @@ public class Client extends Thread{
 			    		// in a synchronous fashion
 			    		MessageSender ms = new MessageSender();
 			    		ms.start();
-			    		System.out.println("Sending Message");
+			    		//System.out.println("Sending Message");
 			    		
 			    		// Keep requesting new pieces, PieceRequest program will terminate
 			    		// program thread if all peers finish downloading.
 			    		PieceRequest pr = new PieceRequest(Integer.parseInt(infoArr[0]), nPieces, completeFile, fSize, pSize);
 			    		pr.start();
-			    		System.out.println("Requested Piece");
+			    		//System.out.println("Requested Piece");
 			    		
 			    		// Receive & Process messages by type
 			    		MessageReciever mr = new MessageReciever(persPeerID, rcvdID, sock, pSize);
@@ -184,7 +184,7 @@ public class Client extends Thread{
 	 * @param content Content for handshake along with header stored here
 	 */
 	private void handShakeSender(Socket sock, byte[] content) {
-		System.out.println("Inside HSS");
+		//System.out.println("Inside HSS");
 		ObjectOutputStream out;
 		try {
 			out = new ObjectOutputStream(sock.getOutputStream());
@@ -223,13 +223,13 @@ public class Client extends Thread{
 	 * @return Receives new handshake object 
 	 */
 	private byte[] handShakeReceiver(Socket sock) {
-		System.out.println("Inside HSR");
+		//System.out.println("Inside HSR");
 		byte[] content = null;
 		try {
-			System.out.println("Waiting for socket Input.");
+			//System.out.println("Waiting for socket Input.");
 			ObjectInputStream in = new ObjectInputStream(sock.getInputStream());
 			content = (byte[]) in.readObject();
-			System.out.println(String.valueOf(content));
+			//System.out.println(String.valueOf(content));
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

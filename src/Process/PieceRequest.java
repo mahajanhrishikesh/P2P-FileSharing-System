@@ -234,7 +234,10 @@ public class PieceRequest extends Thread{
 		
 	}
 
-
+	/**
+	 * Send full file present message
+	 * @param contentFull
+	 */
 	private void sendContentFull(byte[] contentFull) {
 		Iterator<CompleteFile> itr = PeerProcess.hasFullFile.iterator();
 		
@@ -252,9 +255,12 @@ public class PieceRequest extends Thread{
 		}
 	}
 
-
-
-
+	/**
+	 * Returns the piece the peer should ask for next
+	 * @param field
+	 * @param bitfield
+	 * @return
+	 */
 	private int getPieceInfo(byte[] field, byte[] bitfield) {
 		int[] tPieceList = new int[nPieces];
 		int k = 0;
@@ -284,6 +290,7 @@ public class PieceRequest extends Thread{
 				z1[i] = y1[i] - 48;
 			}
 			
+			//COmputing amount of missing pieces 
 			if(j < (bitfield.length - 1))
 			{
 				for(int i = 0; i < z1.length; i++)

@@ -23,6 +23,7 @@ public class Have
 		
 		have[i] = messageType;
 		
+		// Use incremented i
 		for(int j=0; j<payload.length;j++)
 		{
 			i+=1;
