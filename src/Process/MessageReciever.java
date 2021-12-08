@@ -204,7 +204,7 @@ public class MessageReciever extends Thread{
 					/*******Adding CUC Logic*******/
 				}
 				
-				System.out.println("Piece "+ pIdx + "recieved from "+remPeerID);
+				System.out.println("Piece "+ pIdx + " recieved from "+remPeerID);
 				System.out.println();
 				Logger.downloadPiece(remPeerID, pIdx);
 				try
