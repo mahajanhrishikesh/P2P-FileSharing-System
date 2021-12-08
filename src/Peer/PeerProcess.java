@@ -89,6 +89,7 @@ public class PeerProcess {
 					{
 						if (p.getPeerID() == peerProcess.peerID)
 						{
+							System.out.println("Peer "+peerProcess.peerID+" is done. It is now a server.");
 							p.setImdone(true);
 						}
 					}
