@@ -89,9 +89,34 @@ public class PieceRequest extends Thread{
 						System.out.println("Finished Downloading.");
 						Logger.downloadComplete();
 						
+						
 						//Merging file from the collected pieces
 						FileMerger mFile = new FileMerger();
 						mFile.reassemble(persPeerID, fSize, pSize, nPieces);
+						
+						if(PeerProcess.peersList.size() > 1)
+						{
+							for(Peer p: PeerProcess.peersList)
+							{
+								if (p.getPeerID() == peerID)
+								{
+									System.out.println("Peer "+peerID+" is done. It is now a server.");
+									p.setImdone(true);
+								}
+							}
+							boolean checker = true;
+							for(Peer p: PeerProcess.peersList)
+							{
+								if(p.isImdone() == false)
+								{
+									checker = false;
+								}
+							}
+							if(checker)
+							{
+								System.exit(0);
+							}
+						}
 						
 						try {
 							Thread.sleep(20);
