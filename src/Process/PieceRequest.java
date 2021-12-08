@@ -94,28 +94,25 @@ public class PieceRequest extends Thread{
 						FileMerger mFile = new FileMerger();
 						mFile.reassemble(persPeerID, fSize, pSize, nPieces);
 						
-						if(PeerProcess.peersList.size() > 1)
+						for(Peer p: PeerProcess.peersList)
 						{
-							for(Peer p: PeerProcess.peersList)
+							if (p.getPeerID() == peerID)
 							{
-								if (p.getPeerID() == peerID)
-								{
-									System.out.println("Peer "+peerID+" is done. It is now a server.");
-									p.setImdone(true);
-								}
+								System.out.println("Peer "+peerID+" is done. It is now a server.");
+								p.setImdone(true);
 							}
-							boolean checker = true;
-							for(Peer p: PeerProcess.peersList)
+						}
+						boolean checker = true;
+						for(Peer p: PeerProcess.peersList)
+						{
+							if(p.isImdone() == false)
 							{
-								if(p.isImdone() == false)
-								{
-									checker = false;
-								}
+								checker = false;
 							}
-							if(checker)
-							{
-								System.exit(0);
-							}
+						}
+						if(checker)
+						{
+							System.exit(0);
 						}
 						
 						try {
