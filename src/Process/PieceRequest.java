@@ -100,7 +100,7 @@ public class PieceRequest extends Thread{
 						{
 							if (p.getPeerID() == persPeerID)
 							{
-								System.out.println("Peer "+peerID+" is done. It is now a server.");
+								System.out.println("Peer "+persPeerID+" is done. It is now a server.");
 								p.setImdone(true);
 							}
 						}
