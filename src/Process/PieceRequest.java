@@ -98,7 +98,7 @@ public class PieceRequest extends Thread{
 						// When last peer is done everything shall shut down.
 						for(Peer p: PeerProcess.peersList)
 						{
-							if (p.getPeerID() == peerID)
+							if (p.getPeerID() == persPeerID)
 							{
 								System.out.println("Peer "+peerID+" is done. It is now a server.");
 								p.setImdone(true);
