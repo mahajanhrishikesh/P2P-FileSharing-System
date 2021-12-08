@@ -40,7 +40,7 @@ public class MessageReciever extends Thread{
 		{
 			byte[] message = recieveMessage();
 			int type = message[4];
-			System.out.println("Type: "+type);
+			//System.out.println("Type: "+type);
 			
 			switch (type) {
 			case 0: {
@@ -124,8 +124,6 @@ public class MessageReciever extends Thread{
 				}
 				int nPiece = ByteBuffer.wrap(t).getInt();
 				Integer i = new Integer(nPiece);
-				System.out.println("nPiece: "+nPiece);
-				System.out.println("i: "+i);
 				Piece p = PeerProcess.enumPieces.get(i);
 				
 				synchronized(PeerProcess.msgPool)
@@ -242,7 +240,7 @@ public class MessageReciever extends Thread{
 			
 			case 8:
 			{
-				System.out.println("Received Full File Signal");
+				//System.out.println("Received Full File Signal");
 				synchronized(PeerProcess.hasFullFile)
 				{
 					Iterator<CompleteFile> itr = PeerProcess.hasFullFile.iterator();
@@ -281,7 +279,7 @@ public class MessageReciever extends Thread{
 			msg = (byte[]) in.readObject();
 		} catch (IOException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println("OOPS");
+			System.out.println("Exiting now.");
 			System.exit(0);
 		}
 		return msg;
